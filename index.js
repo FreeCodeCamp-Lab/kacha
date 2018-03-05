@@ -1,0 +1,43 @@
+#!/usr/bin/env node
+'use strict';
+
+const puppeteer = require('puppeteer');
+
+const currentPath = process.cwd();
+console.log(`生成图片目录: ${currentPath}`);
+const URL = process.argv[2] || null;
+
+if(!URL){
+  console.log(`Usage: kacha {url}`);process.exit(0);
+}
+
+(async () => { //async function
+  console.log(`准备......`);
+  const browser = await puppeteer.launch({
+    headless: true
+  }); //运行一个 headless chrome， 注意参数
+
+  const page = await browser.newPage(); //创建一个空白page
+  await page.setViewport({
+    width: 1920,
+    height: 1020,
+  });// 设置窗口的分辨率(按需要设置)
+  await page.goto(URL, {
+    waitUntil: 'load'
+  });//打开指定的页面, 注意 waitUntil 参数, 详细看文档
+
+  let pre = await page.$$('pre');// 选择所有 pre 标签
+  let len = pre.length;
+
+  for (let i = 0; i < len; i++) {
+    console.log(`生成图片 (${i+1} / ${len})`);
+    await pre[i].screenshot({ path: `${currentPath}/code_${i+1}.png` });  // 每个pre元素生成一个截图
+  }
+
+  await browser.close();//关闭浏览器
+
+}) ().then((v) => {
+  console.log('Done!'); process.exit(0);
+}).catch((v) => {
+  console.log(v); process.exit(-1);
+});

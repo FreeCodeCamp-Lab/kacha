@@ -1,0 +1,26 @@
+{
+  "name": "@fcc-chengdu/kacha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "kacha": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FreeCodeCamp-Lab/kacha.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FreeCodeCamp-Lab/kacha/issues"
+  },
+  "homepage": "https://github.com/FreeCodeCamp-Lab/kacha#readme",
+  "dependencies": {
+    "puppeteer": "^1.1.1"
+  }
+}
