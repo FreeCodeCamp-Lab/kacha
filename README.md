@@ -5,6 +5,8 @@
 
 	npm install -g @fcc-chengdu/kacha
 
+ 🙊🙊🙊 **climb over the wall** First
+
 ### Usage
 
 	kacha {url}
