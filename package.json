@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/FreeCodeCamp-Lab/kacha#readme",
   "dependencies": {
-    "puppeteer": "^1.1.1"
+    "node-gd": "^1.5.4",
+    "puppeteer": "^1.1.1",
+    "yargs": "^11.0.0"
   }
 }

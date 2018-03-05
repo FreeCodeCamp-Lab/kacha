@@ -2,13 +2,32 @@
 'use strict';
 
 const puppeteer = require('puppeteer');
+const yargs = require('yargs');
+const watermark = require('./libs/watermark');
+
+const argv = yargs
+  .option('t', {
+    alias: 'text',
+    default: 'fcc-chengdu',
+  })
+  .option('c', {
+    alias: 'color',
+    default: 'red',
+  })
+  .option('v', {
+    alias: 'version',
+    default: false,
+  }).argv;
+
 
 const currentPath = process.cwd();
 console.log(`生成图片目录: ${currentPath}`);
+
+
 const URL = process.argv[2] || null;
 
-if(!URL){
-  console.log(`Usage: kacha {url}`);process.exit(0);
+if (!URL) {
+  console.log(`Usage: kacha {url}`); process.exit(0);
 }
 
 (async () => { //async function
@@ -30,13 +49,14 @@ if(!URL){
   let len = pre.length;
 
   for (let i = 0; i < len; i++) {
-    console.log(`生成图片 (${i+1} / ${len})`);
-    await pre[i].screenshot({ path: `${currentPath}/code_${i+1}.png` });  // 每个pre元素生成一个截图
+    console.log(`生成图片 (${i + 1} / ${len})`);
+    await pre[i].screenshot({ path: `${currentPath}/code_${i + 1}.png` });  // 每个pre元素生成一个截图
+    watermark(`${currentPath}/code_${i + 1}.png`, argv);
   }
 
   await browser.close();//关闭浏览器
 
-}) ().then((v) => {
+})().then((v) => {
   console.log('Done!'); process.exit(0);
 }).catch((v) => {
   console.log(v); process.exit(-1);
