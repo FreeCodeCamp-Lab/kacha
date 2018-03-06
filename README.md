@@ -19,3 +19,15 @@
 	目前支持通过 puppeteer 从 html 里把 pre 标签做出图片，
 	
 	更多的功能欢迎 issue
+
+### contribute
+
+	fork it
+
+	git clone 
+
+	npm i
+
+	sudo npm link
+
+	coding
