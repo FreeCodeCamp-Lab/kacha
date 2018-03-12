@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-
+const fs = require('fs');
 const puppeteer = require('puppeteer');
 const yargs = require('yargs');
 const watermark = require('./libs/watermark');
@@ -8,7 +8,7 @@ const watermark = require('./libs/watermark');
 const argv = yargs
   .option('t', {
     alias: 'text',
-    default: 'fcc-chengdu',
+    default: 'FCC成都社区',
   })
   .option('c', {
     alias: 'color',
@@ -24,7 +24,7 @@ const currentPath = process.cwd();
 console.log(`生成图片目录: ${currentPath}`);
 
 
-const URL = process.argv[2] || null;
+const URL = argv._[0] || null;
 
 if (!URL) {
   console.log(`Usage: kacha {url}`); process.exit(0);
@@ -48,10 +48,12 @@ if (!URL) {
   let pre = await page.$$('pre');// 选择所有 pre 标签
   let len = pre.length;
 
+  fs.mkdirSync(`${currentPath}/imgs`);
+
   for (let i = 0; i < len; i++) {
     console.log(`生成图片 (${i + 1} / ${len})`);
-    await pre[i].screenshot({ path: `${currentPath}/code_${i + 1}.png` });  // 每个pre元素生成一个截图
-    watermark(`${currentPath}/code_${i + 1}.png`, argv);
+    await pre[i].screenshot({ path: `${currentPath}/imgs/code_${i + 1}.png` });  // 每个pre元素生成一个截图
+    watermark(`${currentPath}/imgs/code_${i + 1}.png`, argv);
   }
 
   await browser.close();//关闭浏览器
