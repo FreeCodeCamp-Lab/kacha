@@ -7,16 +7,16 @@ const color = require('./colors');
 
 // 反色
 function ColorReverse(OldColorValue) {
-  var OldColorValue = "0x" + OldColorValue;
-  var str = "000000" + (0xFFFFFF - OldColorValue).toString(16);
+  let OldColorValue = "0x" + OldColorValue;
+  let str = "000000" + (0xFFFFFF - OldColorValue).toString(16);
   let color = str.substring(str.length - 6, str.length);
   return toColorFramte(color);
 }
 
 //处理六位的颜色值  
 function toColorFramte(color) {
-  var sColorChange = [];
-  for (var i = 0; i < 6; i += 2) {
+  let sColorChange = [];
+  for (let i = 0; i < 6; i += 2) {
     sColorChange.push(parseInt("0x" + color.slice(i, i + 2)));
   }
   return sColorChange;
@@ -33,19 +33,19 @@ module.exports = (filepath, options = {}) => {
   //todo 使用node-gd库将text写到filepath的图片右下角
 
   // Create blank new image in memory
-  var img = gd.createFromPng(filepath);
+  let img = gd.createFromPng(filepath);
 
   // get point color
-  var background = img.getTrueColorPixel(img.width - 20, img.height - 20).toString(16);
+  let background = img.getTrueColorPixel(img.width - 20, img.height - 20).toString(16);
 
   // to reverse color
-  var reverseColor = ColorReverse(background);
+  let reverseColor = ColorReverse(background);
 
   // set text color
-  var txtColor = img.colorAllocate(reverseColor[0], reverseColor[1], reverseColor[2]);
+  let txtColor = img.colorAllocate(reverseColor[0], reverseColor[1], reverseColor[2]);
 
   // Set full path to font file
-  var fontPath = __dirname + '/pingfang.ttf';
+  let fontPath = __dirname + '/pingfang.ttf';
 
   // Render string in image
   if (img.getBoundsSafe(img.width - 120, img.height - 10) && img.height > 50) {
